@@ -1,7 +1,11 @@
-
-
 import sys
 sys.path.append('../00 data/')
+
+
+def submitAccuracy():
+    from sklearn.metrics import accuracy_score
+    acc = accuracy_score(pred, labels_test)
+    return acc
 
 from class_vis import prettyPicture
 from prep_terrain_data import makeTerrainData
@@ -31,10 +35,7 @@ clf.fit(features_train, labels_train)
 pred = clf.predict(features_test)
 
 
-from sklearn.metrics import accuracy_score
-acc = accuracy_score(pred, labels_test)
+print 'accuracy=', submitAccuracy()
 
-print 'accuracy=', acc
-
-def submitAccuracy():
-    return acc
+prettyPicture(clf, features_test, labels_test)
+output_image("test.png", "png", open("test.png", "rb").read())

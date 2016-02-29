@@ -31,9 +31,6 @@ print "accuracy for min_sample_split=2:", acc
 prettyPicture(clf, features_test, labels_test, "test_min_sample_split2.png")
 output_image("test_min_sample_split2.png", "png", open("test_min_sample_split2.png", "rb").read())
 
-# copy file
-# shutil.copyfile("test.png", "test_min_sample_split2.png")
-
 # get classifier with higher min_sample_split
 clf = classify(features_train, labels_train, 50)
 

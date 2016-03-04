@@ -17,6 +17,8 @@ import sys
 import pickle
 sys.path.append("../tools/")
 from feature_format import featureFormat, targetFeatureSplit
+from sklearn.linear_model import LinearRegression
+
 dictionary = pickle.load( open("../final_project/final_project_dataset_modified.pkl", "r") )
 
 ### list the features you want to look at--first item in the 
@@ -29,7 +31,7 @@ target, features = targetFeatureSplit( data )
 from sklearn.cross_validation import train_test_split
 feature_train, feature_test, target_train, target_test = train_test_split(features, target, test_size=0.5, random_state=42)
 train_color = "b"
-test_color = "b"
+test_color = "r"
 
 
 
@@ -37,13 +39,20 @@ test_color = "b"
 ### Please name it reg, so that the plotting code below picks it up and 
 ### plots it correctly. Don't forget to change the test_color above from "b" to
 ### "r" to differentiate training points from test points.
+reg = LinearRegression()
+reg.fit(feature_train, target_train)
 
 
+reg.predict(feature_test)
 
+print "slope = ", reg.coef_
+print "intercept = ", reg.intercept_
 
+accuracy = reg.score(feature_train, target_train);
+print "accuracy for train data = ", accuracy
 
-
-
+accuracy = reg.score(feature_test, target_test);
+print "accuracy for test data = ", accuracy
 
 ### draw the scatterplot, with color-coded training and testing points
 import matplotlib.pyplot as plt
@@ -55,9 +64,6 @@ for feature, target in zip(feature_train, target_train):
 ### labels for the legend
 plt.scatter(feature_test[0], target_test[0], color=test_color, label="test")
 plt.scatter(feature_test[0], target_test[0], color=train_color, label="train")
-
-
-
 
 ### draw the regression line, once it's coded
 try:

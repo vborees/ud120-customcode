@@ -70,6 +70,13 @@ try:
     plt.plot( feature_test, reg.predict(feature_test) )
 except NameError:
     pass
+
+#new regression line without outliers
+reg.fit(feature_test, target_test)
+print "new regression line slope = ", reg.coef_
+print "new regression line intercept = ", reg.intercept_
+
+plt.plot(feature_train, reg.predict(feature_train), color="g")
 plt.xlabel(features_list[1])
 plt.ylabel(features_list[0])
 plt.legend()
